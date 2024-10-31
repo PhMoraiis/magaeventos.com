@@ -1,140 +1,93 @@
 "use client";
 
-import { MenuIcon, Github, TwitterIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { focusRing } from "./style";
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
-import { useScrolled } from "@/hooks/use-scrolled";
-import { cn } from "@/lib/utils";
-import MagaLogo from "@/components/ui/logo";
-import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 export const Header = () => {
-	const { scrolled } = useScrolled({ initial: false });
+	const [state, setState] = useState(false);
+
+	const navigation = [
+		{ title: "Customers", path: "javascript:void(0)" },
+		{ title: "Careers", path: "javascript:void(0)" },
+		{ title: "Guides", path: "javascript:void(0)" },
+		{ title: "Partners", path: "javascript:void(0)" },
+	];
 
 	return (
-		<header
-			className={cn(
-				"sticky top-0 z-50 flex items-center justify-center h-14 rounded-md max-md:border-b max-md:bg-bg md:h-16",
-				scrolled && "pointer-events-none",
-			)}
-		>
-			<div className="container flex h-full max-w-screen-lg items-center">
-				{/* Desktop Nav */}
-				<div className="hidden w-full items-center justify-between md:flex">
-					<div className="w-[130px]">
-						<a
-							href="/"
-							className={cn(
-								focusRing(),
-								"flex items-center space-x-2 rounded opacity-100 transition-[opacity,transform] duration-300 ease-out",
-								scrolled && "pointer-events-none -translate-x-2 opacity-0",
-							)}
-						>
-							<MagaLogo width={35} height={35} />
-							<div className="mt-1 font-josephin whitespace-nowrap font-catalina leading-normal tracking-tighter uppercase">
-								MAGA
-							</div>
-						</a>
-					</div>
-					<div
-						className={cn(
-							"relative flex items-center gap-6 overflow-hidden rounded-md bg-transparent px-4 py-1 transition-[padding,background-color] duration-300 ease-out",
-							scrolled &&
-								"pointer-events-auto bg-bg-muted pl-14 shadow-lg bg-background/100",
-						)}
-					>
-						<a
-							href="/"
-							className={cn(
-								focusRing(),
-								"pointer-events-none absolute -translate-x-14 rounded opacity-0 transition-[opacity,transform] duration-300 ease-out",
-								scrolled && "-translate-x-10 opacity-100",
-							)}
-							tabIndex={scrolled ? undefined : -1}
-						>
-							<MagaLogo width={20} height={20} />
-						</a>
-						<Nav items={nav.links} />
-						<a href="/auth">
-							<Button size="sm">Get Started</Button>
-						</a>
-					</div>
-					<div
-						className={cn(
-							"flex w-[130px] items-center justify-end space-x-2 opacity-100 transition-[opacity,transform] duration-300 ease-out",
-							scrolled && "pointer-events-none translate-x-2 opacity-0",
-						)}
-						aria-hidden={scrolled}
-						tabIndex={scrolled ? -1 : undefined}
-					>
-						<Button size="icon" aria-label="github">
-							<Github />
-						</Button>
-						<Button size="icon" aria-label="twitter">
-							<TwitterIcon />
-						</Button>
-						{/* <ThemeToggle /> Ficará aqui */}
-					</div>
-				</div>
-				{/* Mobile nav */}
-				<div className="mx-auto items-center flex w-full justify-between gap-4 md:hidden px-4">
-					<a
-						href="/"
-						className={cn(
-							focusRing(),
-							"flex items-center justify-center space-x-2 rounded transition-opacity hover:opacity-80",
-						)}
-					>
-						<MagaLogo width={35} height={35} />
-						<div className="mt-1 font-bold leading-normal tracking-tighter">
-							MAGA
-						</div>
+		<nav className="bg-white w-full border-b md:border-0 md:static">
+			<div className="items-center px-4 max-w-screen-xl mx-auto md:flex md:px-8">
+				<div className="flex items-center justify-between py-3 md:py-5 md:block">
+					<a href="/">
+						<img
+							src="https://www.floatui.com/logo.svg"
+							width={120}
+							height={50}
+							alt="Float UI logo"
+						/>
 					</a>
-					<div className="flex items-center justify-center space-x-4">
-						<a href="/auth">
-							<button
-								type="button"
-								className="group h-8 items-center flex gap-2 rounded-full bg-neutral-200 pl-3 pr-4 transition-all duration-300 ease-in-out hover:bg-black hover:pl-2 hover:text-white active:bg-neutral-700"
-							>
-								<span className="rounded-full bg-black p-1 text-sm transition-colors duration-300 group-hover:bg-white">
-									<svg
-										stroke="currentColor"
-										fill="none"
-										strokeWidth="2"
-										viewBox="0 0 24 24"
+					<div className="md:hidden">
+						<button
+							className="text-gray-700 outline-none p-2 rounded-md focus:border-gray-400 focus:border"
+							onClick={() => setState(!state)}
+							type="button"
+						>
+							{state ? (
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									className="h-6 w-6"
+									viewBox="0 0 20 20"
+									fill="currentColor"
+								>
+									<title>dsds</title>
+									<path
+										fillRule="evenodd"
+										d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+										clipRule="evenodd"
+									/>
+								</svg>
+							) : (
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									className="h-6 w-6"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+								>
+									<title>dsds</title>
+									<path
 										strokeLinecap="round"
 										strokeLinejoin="round"
-										className="-translate-x-[200%] text-[0px] transition-all duration-300 group-hover:translate-x-0 group-hover:text-lg group-hover:text-black group-active:-rotate-45"
-										height="1em"
-										width="1em"
-										xmlns="http://www.w3.org/2000/svg"
-									>
-										<title>Arrow</title>
-										<line x1="5" y1="12" x2="19" y2="12" />
-										<polyline points="12 5 19 12 12 19" />
-									</svg>
-								</span>
-								<span>Get Started</span>
-							</button>
-						</a>
-						<Drawer>
-							<DrawerTrigger asChild>
-								<Button size="icon" aria-label="Open menu">
-									<MenuIcon />
-								</Button>
-							</DrawerTrigger>
-							<DrawerContent>
-								<Nav
-									direction="col"
-									items={[{ label: "Home", href: "/" }, ...nav.links]}
-								/>
-							</DrawerContent>
-						</Drawer>
+										strokeWidth={2}
+										d="M4 8h16M4 16h16"
+									/>
+								</svg>
+							)}
+						</button>
 					</div>
 				</div>
+				<div
+					className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${state ? "block" : "hidden"}`}
+				>
+					<ul className="justify-center items-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+						{navigation.map((item, idx) => {
+							return (
+								// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+								<li key={idx} className="text-gray-600 hover:text-indigo-600">
+									<a href={item.path}>{item.title}</a>
+								</li>
+							);
+						})}
+					</ul>
+				</div>
+				<div className="hidden md:inline-block">
+					<a
+						href="/"
+						className="py-3 px-4 text-white bg-indigo-600 hover:bg-indigo-700 rounded-md shadow"
+					>
+						Get Started
+					</a>
+				</div>
 			</div>
-		</header>
+		</nav>
 	);
 };
 
@@ -164,42 +117,4 @@ const nav = {
 			href: "/spacing",
 		},
 	],
-};
-
-const Nav = (props: NavProps) => {
-	const { items, direction = "row", onNavItemClick } = props;
-	const pathname = usePathname();
-
-	return (
-		<nav
-			className={cn("flex items-center gap-0 sm:gap-2", {
-				"flex-col gap-2": direction === "col",
-			})}
-		>
-			{items.map(
-				(item, index) =>
-					item.href && (
-						<a
-							// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-							key={index}
-							className={cn(
-								focusRing(),
-								"flex items-center justify-center gap-2 rounded px-4 py-1 text-sm font-medium text-text/90 transition-colors hover:text-accent-foreground ",
-								pathname.startsWith(item.href) &&
-									item.href !== "/" &&
-									"bg-foreground/10 text-fg",
-								direction === "col" && "text-md w-full py-2",
-							)}
-							href={item.href}
-							onClick={onNavItemClick}
-						>
-							{item.href === "/" && <MagaLogo width={30} height={30} />}
-							<span className="relative after:absolute after:bg-neutral-400 after:bottom-0 after:left-0 after:h-px after:w-full after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform after:ease-in-out after:duration-300">
-								{item.label}
-							</span>
-						</a>
-					),
-			)}
-		</nav>
-	);
 };

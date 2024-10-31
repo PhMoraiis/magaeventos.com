@@ -4,6 +4,7 @@ export default function Home() {
   return (
     <div>
       <Header />
+      <div className="h-screen">Home</div>
     </div>
   );
 }
